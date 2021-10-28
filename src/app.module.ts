@@ -9,7 +9,14 @@ import { KeyresultsModule } from './keyresults/keyresults.module';
 import { CheckingModule } from './checking/checking.module';
 
 @Module({
-  imports: [PrismaModule, PerspectivesModule, TasksModule, DepartmentsModule, KeyresultsModule, CheckingModule],
+  imports: [
+    PrismaModule,
+    PerspectivesModule,
+    TasksModule,
+    DepartmentsModule,
+    KeyresultsModule,
+    CheckingModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

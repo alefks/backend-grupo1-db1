@@ -4,6 +4,6 @@ import { KeyresultsController } from './keyresults.controller';
 
 @Module({
   providers: [KeyresultsService],
-  controllers: [KeyresultsController]
+  controllers: [KeyresultsController],
 })
 export class KeyresultsModule {}
