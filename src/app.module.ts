@@ -6,7 +6,7 @@ import { PerspectivesModule } from './perspectives/perspectives.module';
 import { TasksModule } from './tasks/tasks.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { KeyresultsModule } from './keyresults/keyresults.module';
-import { CheckingModule } from './checking/checking.module';
+import { CheckinModule } from './checkin/checkin.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { CheckingModule } from './checking/checking.module';
     TasksModule,
     DepartmentsModule,
     KeyresultsModule,
-    CheckingModule,
+    CheckinModule,
   ],
   controllers: [AppController],
   providers: [AppService],
