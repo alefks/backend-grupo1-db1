@@ -25,7 +25,6 @@ model userEmployee{
   currentDepartment Int
   keyresults keyResult[]
   tasks task[]
-  currentKeyResults Int
 }
 
 model department{
@@ -39,8 +38,7 @@ model perspective{
   id Int @id @default(autoincrement())
   name String
   percentage Decimal
-  departments department @relation(fields: [currentDepartments], references:[id])
-  currentDepartments Int
+  departments department[]
 }
 
 model task{
@@ -58,8 +56,8 @@ model keyResult{
   id Int @id @default(autoincrement())
   name String
   description String
-  goal String?
-  achieved String? 
+  goal String
+  achieved String
   frequency String
   responsible userEmployee @relation(fields: [currentResponsible], references:[id])
   currentResponsible Int
