@@ -1,22 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
 
 @Injectable()
-export class KeyResultService {
+export class KeyResultsService {
   constructor(private prisma: PrismaService) {}
 
-  async listAllKeyResult(): Promise<keyResult[]> {
+  async getKeyResults(): Promise<keyResult[]> {
     return this.prisma.keyResult.findMany();
   }
 
-  async createFilme(post: CreateKeyResultsDto) {
-    const checkinDates = post.chekinDates?.map((checkinDate) => ({
-      id: checkinDate,
-    }));
+  async createKeyResults(data: Prisma.keyResultCreateInput) {
+    return this.prisma.keyResult.create({ data });
+  }
 
-    return this.prisma.keyResult.create({
+  async deleteOneKeyResult(
+    where: Prisma.keyResultWhereUniqueInput,
+  ): Promise<keyResult> {
+    return this.prisma.keyResult.delete({ where });
+  }
+
+  async updateOneKeyResult(
+    keyResultId: number,
+    data: Prisma.keyResultCreateInput,
+  ): Promise<keyResult> {
+    return this.prisma.keyResult.update({
+      data,
+      where: {
+        id: keyResultId,
+      },
+    });
+  }
+}
+
+/*   return this.prisma.keyResult.create({
       data: {
         name: post.name,
         description: post.description,
@@ -25,27 +42,24 @@ export class KeyResultService {
         frequency: post.frequency,
 
         checkinDates: {
-          connect: chekinDates,
+          connect: checkinDates,
         },
-      },
-      include: {
-        checkinDates: true,
-      },
-    });
-  }
 
-  async deleteOneFilme(where: Prisma.FilmeWhereUniqueInput): Promise<Filme> {
-    return this.prisma.filme.delete({ where });
-  }
+        include: {
+          checkinDates: true,
+        
+      },
+    }
+    }); */
 
-  /*   async updateOneFilme(
+/*   async updateOneFilme(
     filmeId: number,
     data: Prisma.FilmeCreateInput, 
   ): Promise<Filme> {
     return this.prisma.filme.update({ data, where: { id: filmeId } });
   }*/
 
-  async updateOneFilme(id, data) {
+/* async updateOnekeyResult(id, data) {
     const participantes = data.participantes?.map((participante) => ({
       id: participante,
     }));
@@ -67,9 +81,8 @@ export class KeyResultService {
         participantes: true,
       },
       /* ...post,
-        id: undefined, */
+        id: undefined, 
 
       where: { id },
     });
-  }
-}
+  } */

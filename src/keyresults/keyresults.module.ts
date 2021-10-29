@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { KeyresultsService } from './keyresults.service';
-import { KeyresultsController } from './keyresults.controller';
+import { KeyResultsController } from './keyresults.controller';
+import { KeyResultsService } from './keyresults.service';
 
 @Module({
-  providers: [KeyresultsService],
-  controllers: [KeyresultsController],
+  providers: [KeyResultsService],
+  controllers: [KeyResultsController],
 })
 export class KeyresultsModule {}
