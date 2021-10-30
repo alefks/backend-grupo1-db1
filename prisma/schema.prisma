@@ -38,7 +38,11 @@ model perspective{
   id Int @id @default(autoincrement())
   name String
   percentage Decimal
+<<<<<<< HEAD
   departments department[]
+=======
+  departments department []
+>>>>>>> feature/feature_marco
 }
 
 model task{
@@ -70,6 +74,7 @@ model checkinDate{
   id Int @id @default(autoincrement())
   date DateTime
   result Decimal
+  note String
   keyResult keyResult @relation(fields: [currentKeyResult], references: [id])
   currentKeyResult Int
 }
