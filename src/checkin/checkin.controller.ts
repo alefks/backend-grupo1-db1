@@ -39,7 +39,7 @@ export class checkinController {
     return this.checkinService.createCheckin(createCheckinDto);
   }
 
-  @Put('/update/:id')
+  /* @Put('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
     @Body() updateCheckin: CreateCheckinDto,
@@ -47,7 +47,7 @@ export class checkinController {
   ): Promise<checkinDate> {
     return this.checkinService.updateOneCheckin(id, updateCheckin);
   }
-
+ */
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async delete(@Param('id') id: string) {

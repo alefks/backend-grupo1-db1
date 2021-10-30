@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { checkinDate, Prisma } from '.prisma/client';
+import { CreateCheckinDto } from './dto/create-checkin.dto';
 
 /* Prisma.checkinDateCreateInput */
 
@@ -8,7 +9,8 @@ import { checkinDate, Prisma } from '.prisma/client';
 export class CheckinService {
   constructor(private prisma: PrismaService) {}
 
-  async createCheckin(data: Prisma.checkinDateCreateInput) {
+  /* Prisma.checkinDateCreateInput */
+  async createCheckin(data: CreateCheckinDto) {
     return this.prisma.checkinDate.create({ data });
   }
 
@@ -22,7 +24,7 @@ export class CheckinService {
     return this.prisma.checkinDate.delete({ where });
   }
 
-  async updateOneCheckin(
+  /* async updateOneCheckin(
     checkinDateId: number,
     data: Prisma.checkinDateCreateInput,
   ): Promise<checkinDate> {
@@ -31,6 +33,5 @@ export class CheckinService {
       where: {
         id: checkinDateId,
       },
-    });
-  }
+    }); */
 }

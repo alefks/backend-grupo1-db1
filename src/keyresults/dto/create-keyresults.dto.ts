@@ -1,3 +1,4 @@
+import { Prisma } from '.prisma/client';
 import {
   IsNotEmpty,
   IsOptional,
@@ -35,4 +36,10 @@ export class CreateKeyResultsDto {
   @IsOptional()
   @IsNumber({}, { each: true })
   chekinDates?: number[];
+
+  @IsNumber()
+  responsible: number;
+
+  @IsNumber()
+  task: number;
 }

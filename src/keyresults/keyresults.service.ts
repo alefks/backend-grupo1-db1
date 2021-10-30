@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
 
 @Injectable()
 export class KeyResultsService {
@@ -10,7 +11,20 @@ export class KeyResultsService {
     return this.prisma.keyResult.findMany();
   }
 
-  async createKeyResults(data: Prisma.keyResultCreateInput) {
+  async createKeyResults(dto: CreateKeyResultsDto) {
+    const data: Prisma.keyResultCreateInput = {
+      ...dto,
+      responsible: {
+        connect: {
+          id: dto.responsible,
+        },
+      },
+      task: {
+        connect: {
+          id: dto.task,
+        },
+      },
+    };
     return this.prisma.keyResult.create({ data });
   }
 
@@ -22,7 +36,7 @@ export class KeyResultsService {
 
   async updateOneKeyResult(
     keyResultId: number,
-    data: Prisma.keyResultCreateInput,
+    data: Prisma.taskUpdateInput,
   ): Promise<keyResult> {
     return this.prisma.keyResult.update({
       data,
@@ -32,57 +46,3 @@ export class KeyResultsService {
     });
   }
 }
-
-/*   return this.prisma.keyResult.create({
-      data: {
-        name: post.name,
-        description: post.description,
-        goal: post.goal,
-        achieved: post.achieved,
-        frequency: post.frequency,
-
-        checkinDates: {
-          connect: checkinDates,
-        },
-
-        include: {
-          checkinDates: true,
-        
-      },
-    }
-    }); */
-
-/*   async updateOneFilme(
-    filmeId: number,
-    data: Prisma.FilmeCreateInput, 
-  ): Promise<Filme> {
-    return this.prisma.filme.update({ data, where: { id: filmeId } });
-  }*/
-
-/* async updateOnekeyResult(id, data) {
-    const participantes = data.participantes?.map((participante) => ({
-      id: participante,
-    }));
-    const generos = data.generos?.map((genero) => ({
-      id: genero,
-    }));
-    return await this.prisma.filme.update({
-      data: {
-        ...data,
-        participantes: {
-          connect: participantes,
-        },
-        generos: {
-          connect: generos,
-        },
-      },
-      include: {
-        generos: true,
-        participantes: true,
-      },
-      /* ...post,
-        id: undefined, 
-
-      where: { id },
-    });
-  } */
