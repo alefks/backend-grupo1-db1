@@ -13,7 +13,7 @@ import {
 import { UserAdminDto } from './dto/create-userAdmin.dto';
 import { UserAdminService } from './user-admin.service';
 
-@Controller('departments')
+@Controller('user-admin')
 export class UserAdminController {
   constructor(private userAdminService: UserAdminService) {}
 
