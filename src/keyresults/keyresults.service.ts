@@ -14,6 +14,7 @@ export class KeyResultsService {
   async createKeyResults(dto: CreateKeyResultsDto) {
     const data: Prisma.keyResultCreateInput = {
       ...dto,
+
       responsible: {
         connect: {
           id: dto.responsible,
@@ -33,16 +34,25 @@ export class KeyResultsService {
   ): Promise<keyResult> {
     return this.prisma.keyResult.delete({ where });
   }
+  async updateOneKeyResult(id, data) {
+    const chekinDates = data.checkinDates?.map((checkinDate) => ({
+      id: checkinDate,
+    }));
 
-  async updateOneKeyResult(
-    keyResultId: number,
-    data: Prisma.taskUpdateInput,
-  ): Promise<keyResult> {
-    return this.prisma.keyResult.update({
-      data,
-      where: {
-        id: keyResultId,
+    return await this.prisma.keyResult.update({
+      data: {
+        ...data,
+        checkinDates: {
+          connect: chekinDates,
+        },
       },
+      include: {
+        checkinDates: true,
+      },
+      /* ...post,
+        id: undefined, */
+
+      where: { id },
     });
   }
 }
