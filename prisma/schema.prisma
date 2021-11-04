@@ -10,71 +10,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model userAdmin{
-  id Int @id @default(autoincrement())
-  name String
-  email String
+model userAdmin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String
   username String @unique
   password String
 }
 
-model userEmployee{
-  id Int @id @default(autoincrement())
-  name String
-  department department @relation(fields: [currentDepartment], references: [id])
-  currentDepartment Int
+model teamPartner {
+  id         Int         @id @default(autoincrement())
+  name       String
+  team       team        @relation(fields: [teamId], references: [id])
+  teamId     Int
   keyresults keyResult[]
-  tasks task[]
+  objectives objective[]
 }
 
-model department{
-  id Int @id @default(autoincrement())
-  name String @unique
-  employees userEmployee[]
-  perspectives perspective[]
+model team {
+  id           Int           @id @default(autoincrement())
+  name         String
+  years        String
+  objectives   objective[]
+  teamPartners teamPartner[]
 }
 
-model perspective{
-  id Int @id @default(autoincrement())
-  name String
-  percentage Decimal
-<<<<<<< HEAD
-  departments department[]
-=======
-  departments department []
->>>>>>> feature/feature_marco
-}
-
-model task{
-  id Int @id @default(autoincrement())
-  name String
+model objective {
+  id          Int         @id @default(autoincrement())
+  name        String
   description String
   data_inicio DateTime
-  data_fim DateTime
-  keyResults keyResult[]
-  manager userEmployee @relation(fields: [currentManager], references: [id])
-  currentManager Int
+  data_fim    DateTime
+  keyResults  keyResult[]
+  teamId      Int
+  manager     teamPartner @relation(fields: [managerId], references: [id])
+  managerId   Int
+  team        team        @relation(fields: [teamId], references: [id])
 }
 
-model keyResult{
-  id Int @id @default(autoincrement())
-  name String
-  description String
-  goal String
-  achieved String
-  frequency String
-  responsible userEmployee @relation(fields: [currentResponsible], references:[id])
-  currentResponsible Int
-  task task @relation(fields: [currentTask], references: [id])
-  currentTask Int
-  checkinDates checkinDate[]
+model keyResult {
+  id            Int           @id @default(autoincrement())
+  name          String
+  description   String
+  goal          Int
+  achieved      Int
+  frequency     String
+  responsible   teamPartner   @relation(fields: [responsibleId], references: [id])
+  responsibleId Int
+  objective     objective     @relation(fields: [objectiveId], references: [id])
+  objectiveId   Int
+  checkinDates  checkinDate[]
 }
 
-model checkinDate{
-  id Int @id @default(autoincrement())
-  date DateTime
-  result Decimal
-  note String
-  keyResult keyResult @relation(fields: [currentKeyResult], references: [id])
-  currentKeyResult Int
+model checkinDate {
+  id          Int       @id @default(autoincrement())
+  date        DateTime
+  result      Decimal
+  note        String
+  keyResult   keyResult @relation(fields: [keyResultId], references: [id])
+  keyResultId Int
 }
