@@ -32,18 +32,27 @@ export class KeyResultsController {
     return this.keyResultsService.createKeyResults(createKeyResultsDto);
   }
 
-  @Put('/update/:id')
+  /* @Put('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
     @Body() updateKeyResultsDto: CreateKeyResultsDto,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: number,
   ): Promise<keyResult> {
     return this.keyResultsService.updateOneKeyResult(id, updateKeyResultsDto);
   }
-
+ */
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async delete(@Param('id') id: string) {
     return this.keyResultsService.deleteOneKeyResult({ id: Number(id) });
+  }
+
+  @Put('/update/:id')
+  @UsePipes(ValidationPipe)
+  async update(
+    @Body() updateKeyResult: CreateKeyResultsDto,
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<keyResult> {
+    return this.keyResultsService.updateOneKeyResult(id, updateKeyResult);
   }
 }
