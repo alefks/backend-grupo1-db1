@@ -7,4 +7,4 @@ import { PrismaService } from 'src/prisma/prisma.service';
   providers: [CheckinService, PrismaService],
   controllers: [checkinController],
 })
-export class CheckinModule {}
+export class CheckinModule
