@@ -41,5 +41,5 @@ export class CreateKeyResultsDto {
   responsible: number;
 
   @IsNumber()
-  task: number;
+  objective: number;
 }

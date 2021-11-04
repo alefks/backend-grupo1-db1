@@ -5,8 +5,6 @@ import {
   Post,
   Delete,
   Param,
-  Put,
-  ParseIntPipe,
   ValidationPipe,
   UsePipes,
 } from '@nestjs/common';
@@ -24,13 +22,6 @@ export class checkinController {
     return this.checkinService.getCheckin();
   }
 
-  /*   @Post('/create')
-  @UsePipes(ValidationPipe)
-  async create(@Body() createCheckin: CreateCheckinDto): Promise<checkinDate> {
-    return this.checkinService.createCheckin(createCheckin);
-  }
- */
-
   @Post('/create')
   @UsePipes(ValidationPipe)
   async create(
@@ -39,15 +30,6 @@ export class checkinController {
     return this.checkinService.createCheckin(createCheckinDto);
   }
 
-  /* @Put('/update/:id')
-  @UsePipes(ValidationPipe)
-  async update(
-    @Body() updateCheckin: CreateCheckinDto,
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<checkinDate> {
-    return this.checkinService.updateOneCheckin(id, updateCheckin);
-  }
- */
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async delete(@Param('id') id: string) {

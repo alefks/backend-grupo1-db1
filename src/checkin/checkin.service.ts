@@ -3,13 +3,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { checkinDate, Prisma } from '.prisma/client';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
 
-/* Prisma.checkinDateCreateInput */
-
 @Injectable()
 export class CheckinService {
   constructor(private prisma: PrismaService) {}
-
-  /* Prisma.checkinDateCreateInput */
+  
   async createCheckin(data: CreateCheckinDto) {
     return this.prisma.checkinDate.create({ data });
   }

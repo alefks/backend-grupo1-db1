@@ -20,9 +20,9 @@ export class KeyResultsService {
           id: dto.responsible,
         },
       },
-      task: {
+      objective: {
         connect: {
-          id: dto.task,
+          id: dto.objective,
         },
       },
     };
@@ -49,8 +49,6 @@ export class KeyResultsService {
       include: {
         checkinDates: true,
       },
-      /* ...post,
-        id: undefined, */
 
       where: { id },
     });
