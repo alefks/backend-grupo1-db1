@@ -7,6 +7,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { KeyresultsModule } from './keyresults/keyresults.module';
 import { CheckinModule } from './checkin/checkin.module';
+import { TeamPartnerModule } from './team-partners/team-partners.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CheckinModule } from './checkin/checkin.module';
     DepartmentsModule,
     KeyresultsModule,
     CheckinModule,
+    TeamPartnerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
