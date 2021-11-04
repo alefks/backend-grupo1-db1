@@ -36,16 +36,26 @@ model team {
 }
 
 model objective {
-  id          Int         @id @default(autoincrement())
-  name        String
-  description String
-  data_inicio DateTime
-  data_fim    DateTime
-  keyResults  keyResult[]
-  teamId      Int
-  manager     teamPartner @relation(fields: [managerId], references: [id])
-  managerId   Int
-  team        team        @relation(fields: [teamId], references: [id])
+  id                   Int         @id @default(autoincrement())
+  name                 String
+  description          String
+  startDate            DateTime
+  endDate              DateTime
+  keyResults           keyResult[]
+  teamId               Int
+  relationalObjectives objective[] @relation("relationalObjectives")
+  quarters             quarter[]
+  manager              teamPartner @relation(fields: [managerId], references: [id])
+  managerId            Int
+  team                 team        @relation(fields: [teamId], references: [id])
+  objective            objective?  @relation("relationalObjectives", fields: [objectiveId], references: [id])
+  objectiveId          Int?
+}
+
+model quarter {
+  id         Int         @id @default(autoincrement())
+  name       String
+  objectives objective[]
 }
 
 model keyResult {
