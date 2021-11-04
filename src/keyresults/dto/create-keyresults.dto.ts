@@ -22,11 +22,11 @@ export class CreateKeyResultsDto {
 
   @IsOptional()
   @IsNumber()
-  goal: string;
+  goal: number;
 
   @IsOptional()
   @IsNumber()
-  achieved: string;
+  achieved: number;
 
   @IsOptional()
   @IsString()

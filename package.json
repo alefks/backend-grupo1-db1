@@ -1,7 +1,7 @@
 {
   "name": "backend-grupo1-btc-db1",
   "version": "0.0.1",
-  "description": "",
+  "description": "<p align=\"center\">\r   <a href=\"http://nestjs.com/\" target=\"blank\"><img src=\"https://nestjs.com/img/logo_text.svg\" width=\"320\" alt=\"Nest Logo\" /></a>\r </p>",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
-    "@prisma/client": "^3.3.0",
+    "@prisma/client": "^3.4.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "reflect-metadata": "^0.1.13",
@@ -70,5 +70,17 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alefks/backend-grupo1-btc-db1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alefks/backend-grupo1-btc-db1/issues"
+  },
+  "homepage": "https://github.com/alefks/backend-grupo1-btc-db1#readme"
 }
