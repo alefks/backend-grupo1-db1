@@ -31,6 +31,18 @@ export class TeamPartnerController {
     return this.teamPartnerService.getTeamPartner();
   }
 
+  @Get('/list/:id')
+  @UsePipes(ValidationPipe)
+  async findUnique(@Param('id', ParseIntPipe) id: number) {
+    return this.teamPartnerService.getOneTeamPartner(id);
+  }
+
+  @Delete('/delete')
+  @UsePipes(ValidationPipe)
+  async deleteMany() {
+    return this.teamPartnerService.deleteAllTeamPartners();
+  }
+
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async delete(@Param('id') id: string) {
