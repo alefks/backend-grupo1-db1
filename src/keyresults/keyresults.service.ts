@@ -34,6 +34,10 @@ export class KeyResultsService {
   ): Promise<keyResult> {
     return this.prisma.keyResult.delete({ where });
   }
+
+  async deleteAllKeyResults() {
+    return this.prisma.keyResult.deleteMany();
+  }
   async updateOneKeyResult(id, data) {
     const chekinDates = data.checkinDates?.map((checkinDate) => ({
       id: checkinDate,

@@ -19,5 +19,5 @@ export class CreateCheckinDto {
   @IsNotEmpty({ message: 'Obrigatório informar a data do Ckecking' })
   date: Date;
 
-  KeyResultId: number;
+  keyResultId: number;
 }

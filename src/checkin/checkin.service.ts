@@ -6,7 +6,7 @@ import { CreateCheckinDto } from './dto/create-checkin.dto';
 @Injectable()
 export class CheckinService {
   constructor(private prisma: PrismaService) {}
-  
+
   async createCheckin(data: CreateCheckinDto) {
     return this.prisma.checkinDate.create({ data });
   }
@@ -19,5 +19,21 @@ export class CheckinService {
     where: Prisma.checkinDateWhereUniqueInput,
   ): Promise<checkinDate> {
     return this.prisma.checkinDate.delete({ where });
+  }
+
+  async deleteAllCheckin() {
+    return this.prisma.checkinDate.deleteMany();
+  }
+
+  async updateOneCheckinDate(
+    checkinId: number,
+    data: Prisma.checkinDateCreateInput,
+  ): Promise<checkinDate> {
+    return this.prisma.checkinDate.update({
+      data,
+      where: {
+        id: checkinId,
+      },
+    });
   }
 }
