@@ -20,9 +20,9 @@ export class KeyResultsService {
           id: dto.responsible,
         },
       },
-      task: {
+      objective: {
         connect: {
-          id: dto.task,
+          id: dto.objective,
         },
       },
     };
@@ -33,6 +33,10 @@ export class KeyResultsService {
     where: Prisma.keyResultWhereUniqueInput,
   ): Promise<keyResult> {
     return this.prisma.keyResult.delete({ where });
+  }
+
+  async deleteAllKeyResults() {
+    return this.prisma.keyResult.deleteMany();
   }
   async updateOneKeyResult(id, data) {
     const chekinDates = data.checkinDates?.map((checkinDate) => ({
@@ -49,8 +53,6 @@ export class KeyResultsService {
       include: {
         checkinDates: true,
       },
-      /* ...post,
-        id: undefined, */
 
       where: { id },
     });

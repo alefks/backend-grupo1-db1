@@ -5,10 +5,10 @@ import {
   Post,
   Delete,
   Param,
-  Put,
-  ParseIntPipe,
   ValidationPipe,
   UsePipes,
+  ParseIntPipe,
+  Patch,
 } from '@nestjs/common';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
 import { checkinDate } from '.prisma/client';
@@ -24,13 +24,6 @@ export class checkinController {
     return this.checkinService.getCheckin();
   }
 
-  /*   @Post('/create')
-  @UsePipes(ValidationPipe)
-  async create(@Body() createCheckin: CreateCheckinDto): Promise<checkinDate> {
-    return this.checkinService.createCheckin(createCheckin);
-  }
- */
-
   @Post('/create')
   @UsePipes(ValidationPipe)
   async create(
@@ -39,18 +32,24 @@ export class checkinController {
     return this.checkinService.createCheckin(createCheckinDto);
   }
 
-  /* @Put('/update/:id')
+  @Delete('/delete/:id')
+  @UsePipes(ValidationPipe)
+  async delete(@Param('id') id: string) {
+    return this.checkinService.deleteOneCheckin({ id: Number(id) });
+  }
+
+  @Delete('/delete/all')
+  @UsePipes(ValidationPipe)
+  async deleteAll() {
+    return this.checkinService.deleteAllCheckin();
+  }
+
+  @Patch('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
     @Body() updateCheckin: CreateCheckinDto,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<checkinDate> {
-    return this.checkinService.updateOneCheckin(id, updateCheckin);
-  }
- */
-  @Delete('/delete/:id')
-  @UsePipes(ValidationPipe)
-  async delete(@Param('id') id: string) {
-    return this.checkinService.deleteOneCheckin({ id: Number(id) });
+    return this.checkinService.updateOneCheckinDate(id, updateCheckin);
   }
 }
