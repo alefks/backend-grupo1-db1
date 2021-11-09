@@ -6,7 +6,7 @@ import { CreateCheckinDto } from './dto/create-checkin.dto';
 @Injectable()
 export class CheckinService {
   constructor(private prisma: PrismaService) {}
-  
+
   async createCheckin(data: CreateCheckinDto) {
     return this.prisma.checkinDate.create({ data });
   }
