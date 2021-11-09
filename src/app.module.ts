@@ -8,6 +8,7 @@ import { DepartmentsModule } from './departments/departments.module';
 import { KeyresultsModule } from './keyresults/keyresults.module';
 import { CheckinModule } from './checkin/checkin.module';
 import { TeamPartnerModule } from './team-partners/team-partners.module';
+import { ObjectiveModule } from './objective/objective.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TeamPartnerModule } from './team-partners/team-partners.module';
     KeyresultsModule,
     CheckinModule,
     TeamPartnerModule,
+    ObjectiveModule,
   ],
   controllers: [AppController],
   providers: [AppService],
