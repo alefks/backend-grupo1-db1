@@ -20,4 +20,20 @@ export class CheckinService {
   ): Promise<checkinDate> {
     return this.prisma.checkinDate.delete({ where });
   }
+
+  async deleteAllCheckin() {
+    return this.prisma.checkinDate.deleteMany();
+  }
+
+  async updateOneCheckinDate(
+    checkinId: number,
+    data: Prisma.checkinDateCreateInput,
+  ): Promise<checkinDate> {
+    return this.prisma.checkinDate.update({
+      data,
+      where: {
+        id: checkinId,
+      },
+    });
+  }
 }

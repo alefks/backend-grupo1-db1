@@ -26,6 +26,18 @@ export class TeamPartnerService {
     return this.prisma.teamPartner.findMany();
   }
 
+  async getOneTeamPartner(teamPartnerId: number): Promise<teamPartner> {
+    return this.prisma.teamPartner.findUnique({
+      where: {
+        id: teamPartnerId,
+      },
+    })
+  }
+
+  async deleteAllTeamPartners() {
+    return this.prisma.teamPartner.deleteMany();
+  }
+
   async deleteOneTeamPartner(
     where: Prisma.teamPartnerWhereUniqueInput,
   ): Promise<teamPartner> {
