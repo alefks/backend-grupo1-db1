@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { checkinDate, Prisma } from '.prisma/client';
+import { Prisma, checkinDate } from '@prisma/client';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class CheckinService {
 
   async updateOneCheckinDate(
     checkinId: number,
-    data: Prisma.checkinDateCreateInput,
+    data: Prisma.checkinDateUpdateInput,
   ): Promise<checkinDate> {
     return this.prisma.checkinDate.update({
       data,
