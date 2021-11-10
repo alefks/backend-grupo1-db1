@@ -30,7 +30,6 @@ model teamPartner {
 model team {
   id           Int           @id @default(autoincrement())
   name         String
-  years        Int
   objectives   objective[]
   teamPartners teamPartner[]
 }

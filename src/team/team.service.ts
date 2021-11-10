@@ -9,7 +9,7 @@ export class TeamService {
   constructor(private prisma: PrismaService) {}
 
   async createTeam(dto: CreateTeamDto) {
-    const data: Prisma.teamCreateInput = { name: dto.name, years: dto.years };
+    const data: Prisma.teamCreateInput = { name: dto.name };
     return this.prisma.team.create({ data });
   }
 
