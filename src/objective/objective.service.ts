@@ -23,15 +23,15 @@ export class ObjectiveService {
     return this.db.objective.create({ data });
   }
 
-  findAll() {
-    return this.db.objective.findMany;
+  async findAll() {
+    return this.db.objective.findMany();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.db.objective.findUnique({ where: { id } });
   }
 
-  update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
+  async update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
     const data: Prisma.objectiveUpdateInput = {
       ..._updateObjectiveDto,
       manager: { connect: { id: _updateObjectiveDto.managerId } },
@@ -46,7 +46,7 @@ export class ObjectiveService {
     return this.db.objective.update({ where: { id }, data });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.db.objective.delete({ where: { id } });
   }
 }
