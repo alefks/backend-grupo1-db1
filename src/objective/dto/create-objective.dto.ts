@@ -21,9 +21,6 @@ export class CreateObjectiveDto {
   @IsInt({ each: true })
   relationalObjectives?: number[];
 
-  @IsInt({ each: true })
-  quarters: number[];
-
   @IsInt()
   managerId: number;
 }
