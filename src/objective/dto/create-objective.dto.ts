@@ -10,10 +10,10 @@ export class CreateObjectiveDto {
   description: string;
 
   @IsDateString()
-  startDate: string;
+  startDate: Date;
 
   @IsDateString()
-  endDate: string;
+  endDate: Date;
 
   @IsInt()
   teamID: number;
