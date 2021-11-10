@@ -19,9 +19,6 @@ export class ObjectiveService {
             id,
           })),
         } || {},
-      quarters: {
-        connect: _createObjectiveDto.quarters?.map((id) => ({ id })),
-      },
     };
     return this.db.objective.create({ data });
   }
@@ -45,9 +42,6 @@ export class ObjectiveService {
             id,
           })),
         } || {},
-      quarters: {
-        connect: _updateObjectiveDto.quarters?.map((id) => ({ id })),
-      },
     };
     return this.db.objective.update({ where: { id }, data });
   }
