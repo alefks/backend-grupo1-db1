@@ -15,7 +15,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createTeamDto: CreateTeamDto) {
     return this.teamService.createTeam(createTeamDto);
   }
