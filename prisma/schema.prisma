@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,8 +18,8 @@ model userAdmin {
 model teamPartner {
   id         Int         @id @default(autoincrement())
   name       String
-  team       team        @relation(fields: [teamId], references: [id])
   teamId     Int
+  team       team        @relation(fields: [teamId], references: [id])
   keyresults keyResult[]
   objectives objective[]
 }
@@ -38,16 +35,15 @@ model objective {
   id                   Int         @id @default(autoincrement())
   name                 String
   description          String
-  startDate            DateTime
-  endDate              DateTime
-  keyResults           keyResult[]
   teamId               Int
-  relationalObjectives objective[] @relation("relationalObjectives")
-  manager              teamPartner @relation(fields: [managerId], references: [id])
   managerId            Int
+  endDate              DateTime
+  startDate            DateTime
+  manager              teamPartner @relation(fields: [managerId], references: [id])
   team                 team        @relation(fields: [teamId], references: [id])
-  objective            objective?  @relation("relationalObjectives", fields: [objectiveId], references: [id])
-  objectiveId          Int?
+  keyResults           keyResult[]
+  relationalObjectives objective[] @relation("objectivesRelations")
+  relatedObjectives objective[] @relation("objectivesRelations")
 }
 
 model keyResult {
@@ -57,10 +53,10 @@ model keyResult {
   goal          Int
   achieved      Int
   frequency     String
-  responsible   teamPartner   @relation(fields: [responsibleId], references: [id])
   responsibleId Int
-  objective     objective     @relation(fields: [objectiveId], references: [id])
   objectiveId   Int
+  objective     objective     @relation(fields: [objectiveId], references: [id])
+  responsible   teamPartner   @relation(fields: [responsibleId], references: [id])
   checkinDates  checkinDate[]
 }
 
@@ -69,6 +65,6 @@ model checkinDate {
   date        DateTime
   result      Decimal
   note        String
-  keyResult   keyResult @relation(fields: [keyResultId], references: [id])
   keyResultId Int
+  keyResult   keyResult @relation(fields: [keyResultId], references: [id])
 }
