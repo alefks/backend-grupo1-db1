@@ -11,10 +11,10 @@ export class TeamPartnerService {
   async createTeamPartner(dto: CreateTeamPartnerDto) {
     const data: Prisma.teamPartnerCreateInput = {
       ...dto,
-      team: dto.teamId
+      team: dto.team
         ? {
             connect: {
-              id: dto.teamId,
+              id: dto.team,
             },
           }
         : {},
@@ -50,10 +50,10 @@ export class TeamPartnerService {
   ): Promise<teamPartner> {
     const data: Prisma.teamPartnerUpdateInput = {
       ...dto,
-      team: dto.teamId
+      team: dto.team
         ? {
             connect: {
-              id: dto.teamId,
+              id: dto.team,
             },
           }
         : {},

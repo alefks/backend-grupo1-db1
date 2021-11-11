@@ -11,8 +11,8 @@ export class ObjectiveService {
   async create(_createObjectiveDto: CreateObjectiveDto): Promise<objective> {
     const data: Prisma.objectiveCreateInput = {
       ..._createObjectiveDto,
-      manager: { connect: { id: _createObjectiveDto.managerId } },
-      team: { connect: { id: _createObjectiveDto.teamID } },
+      manager: { connect: { id: _createObjectiveDto.manager } },
+      team: { connect: { id: _createObjectiveDto.team } },
       relationalObjectives:
         {
           connect: _createObjectiveDto.relationalObjectives?.map((id) => ({
@@ -34,8 +34,12 @@ export class ObjectiveService {
   async update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
     const data: Prisma.objectiveUpdateInput = {
       ..._updateObjectiveDto,
-      manager: { connect: { id: _updateObjectiveDto.managerId } },
-      team: { connect: { id: _updateObjectiveDto.teamID } },
+      manager: _updateObjectiveDto.manager
+        ? { connect: { id: _updateObjectiveDto.manager } }
+        : {},
+      team: _updateObjectiveDto.team
+        ? { connect: { id: _updateObjectiveDto.team } }
+        : {},
       relationalObjectives:
         {
           connect: _updateObjectiveDto.relationalObjectives?.map((id) => ({

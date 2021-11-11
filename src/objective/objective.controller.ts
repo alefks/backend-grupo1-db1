@@ -15,7 +15,7 @@ import { UpdateObjectiveDto } from './dto/update-objective.dto';
 export class ObjectiveController {
   constructor(private readonly objectiveService: ObjectiveService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createObjectiveDto: CreateObjectiveDto) {
     return this.objectiveService.create(createObjectiveDto);
   }
