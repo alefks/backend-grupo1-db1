@@ -1,4 +1,11 @@
-import { IsDateString, IsInt, IsString, Length } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsInt,
+  IsOptional,
+  IsString,
+  Length,
+} from 'class-validator';
 
 export class CreateObjectiveDto {
   @IsString()
@@ -16,11 +23,13 @@ export class CreateObjectiveDto {
   endDate: Date;
 
   @IsInt()
-  teamID: number;
+  team: number;
 
+  @IsOptional()
+  @IsArray()
   @IsInt({ each: true })
-  relationalObjectives?: number[];
+  relationalObjectives: number[];
 
   @IsInt()
-  managerId: number;
+  manager: number;
 }
