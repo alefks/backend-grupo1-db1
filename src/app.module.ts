@@ -6,6 +6,7 @@ import { KeyresultsModule } from './keyresults/keyresults.module';
 import { CheckinModule } from './checkin/checkin.module';
 import { TeamPartnerModule } from './team-partners/team-partners.module';
 import { TeamModule } from './team/team.module';
+import { ObjectiveModule } from './objective/objective.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TeamModule } from './team/team.module';
     CheckinModule,
     TeamPartnerModule,
     TeamModule,
+    ObjectiveModule,
   ],
   controllers: [AppController],
   providers: [AppService],
