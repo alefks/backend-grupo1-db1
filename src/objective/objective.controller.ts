@@ -40,6 +40,6 @@ export class ObjectiveController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.objectiveService.remove(+id);
+    return this.objectiveService.remove({ id: Number(id) });
   }
 }
