@@ -2,12 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, checkinDate } from '@prisma/client';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
+import { UpdateCheckinDto } from './dto/update-checkin.dto';
 
 @Injectable()
 export class CheckinService {
   constructor(private prisma: PrismaService) {}
 
-  async createCheckin(data: CreateCheckinDto) {
+  async createCheckin(dto: CreateCheckinDto) {
+    const data: Prisma.checkinDateCreateInput = {
+      ...dto,
+
+      keyResult: {
+        connect: {
+          id: dto.keyResult,
+        },
+      },
+    };
     return this.prisma.checkinDate.create({ data });
   }
 
@@ -27,8 +37,18 @@ export class CheckinService {
 
   async updateOneCheckinDate(
     checkinId: number,
-    data: Prisma.checkinDateUpdateInput,
+    dto: UpdateCheckinDto,
   ): Promise<checkinDate> {
+    const data: Prisma.checkinDateUpdateInput = {
+      ...dto,
+      keyResult: dto.keyResult
+        ? {
+            connect: {
+              id: dto.keyResult,
+            },
+          }
+        : {},
+    };
     return this.prisma.checkinDate.update({
       data,
       where: {
