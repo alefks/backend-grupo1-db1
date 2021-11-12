@@ -28,7 +28,10 @@ export class ObjectiveService {
   }
 
   async findOne(id: number) {
-    return this.db.objective.findUnique({ where: { id } });
+    return this.db.objective.findUnique({
+      where: { id },
+      include: { keyResults: true },
+    });
   }
 
   async update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
@@ -50,7 +53,7 @@ export class ObjectiveService {
     return this.db.objective.update({ where: { id }, data });
   }
 
-  async remove(id: number) {
-    return this.db.objective.delete({ where: { id } });
+  async remove(where: Prisma.objectiveWhereUniqueInput) {
+    return this.db.objective.delete({ where });
   }
 }

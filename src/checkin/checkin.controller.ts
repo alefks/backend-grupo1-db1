@@ -13,12 +13,13 @@ import {
 import { CreateCheckinDto } from './dto/create-checkin.dto';
 import { checkinDate } from '.prisma/client';
 import { CheckinService } from './checkin.service';
+import { UpdateCheckinDto } from './dto/update-checkin.dto';
 
 @Controller('checkin')
 export class checkinController {
   constructor(private checkinService: CheckinService) {}
 
-  @Get('/lista')
+  @Get('')
   @UsePipes(ValidationPipe)
   async findMany(): Promise<checkinDate[]> {
     return this.checkinService.getCheckin();
@@ -47,7 +48,7 @@ export class checkinController {
   @Patch('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
-    @Body() updateCheckin: CreateCheckinDto,
+    @Body() updateCheckin: UpdateCheckinDto,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<checkinDate> {
     return this.checkinService.updateOneCheckinDate(id, updateCheckin);

@@ -16,8 +16,9 @@ export class CreateCheckinDto {
   @MaxLength(200, { message: 'Máximo 200 caracteres' })
   note: string;
 
-  @IsNotEmpty({ message: 'Obrigatório informar a data do Ckecking' })
+  @IsNotEmpty({ message: 'Obrigatório informar a data do Ckeckin' })
   date: Date;
 
-  keyResultId: number;
+  @IsNumber()
+  keyResult: number;
 }

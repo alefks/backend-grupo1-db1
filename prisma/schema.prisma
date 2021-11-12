@@ -55,7 +55,7 @@ model keyResult {
   frequency     String
   responsibleId Int
   objectiveId   Int
-  objective     objective     @relation(fields: [objectiveId], references: [id])
+  objective     objective     @relation(fields: [objectiveId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   responsible   teamPartner   @relation(fields: [responsibleId], references: [id])
   checkinDates  checkinDate[]
 }
