@@ -5,14 +5,15 @@ import {
   Post,
   Delete,
   Param,
-  Put,
   ParseIntPipe,
   ValidationPipe,
   UsePipes,
+  Patch,
 } from '@nestjs/common';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
 import { keyResult } from '.prisma/client';
 import { KeyResultsService } from './keyresults.service';
+import { UpdateKeyResultsDto } from './dto/update-keyresults.dto';
 
 @Controller('keyresults')
 export class KeyResultsController {
@@ -44,10 +45,10 @@ export class KeyResultsController {
     return this.keyResultsService.deleteAllKeyResults();
   }
 
-  @Put('/update/:id')
+  @Patch('/update/:id')
   @UsePipes(ValidationPipe)
   async update(
-    @Body() updateKeyResult: CreateKeyResultsDto,
+    @Body() updateKeyResult: UpdateKeyResultsDto,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<keyResult> {
     return this.keyResultsService.updateOneKeyResult(id, updateKeyResult);
