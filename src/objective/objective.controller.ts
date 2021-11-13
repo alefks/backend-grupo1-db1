@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { ObjectiveService } from './objective.service';
 import { CreateObjectiveDto } from './dto/create-objective.dto';
@@ -16,30 +18,41 @@ export class ObjectiveController {
   constructor(private readonly objectiveService: ObjectiveService) {}
 
   @Post('create')
-  create(@Body() createObjectiveDto: CreateObjectiveDto) {
+  @UsePipes(ValidationPipe)
+  async create(@Body() createObjectiveDto: CreateObjectiveDto) {
     return this.objectiveService.create(createObjectiveDto);
   }
 
   @Get()
-  findAll() {
+  @UsePipes(ValidationPipe)
+  async findAll() {
     return this.objectiveService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  @UsePipes(ValidationPipe)
+  async findOne(@Param('id') id: string) {
     return this.objectiveService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
+  @Patch('/update/:id')
+  @UsePipes(ValidationPipe)
+  async update(
     @Param('id') id: string,
     @Body() updateObjectiveDto: UpdateObjectiveDto,
   ) {
     return this.objectiveService.update(+id, updateObjectiveDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.objectiveService.remove({ id: Number(id) });
+  @Delete('delete/:id')
+  @UsePipes(ValidationPipe)
+  async deleteOne(@Param('id') id: string) {
+    return this.objectiveService.deleteOneObjective({ id: Number(id) });
+  }
+
+  @Delete('delete')
+  @UsePipes(ValidationPipe)
+  async deleteAll() {
+    return this.objectiveService.deleteAllObjectives();
   }
 }
