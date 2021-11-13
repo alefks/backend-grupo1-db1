@@ -53,7 +53,11 @@ export class ObjectiveService {
     return this.db.objective.update({ where: { id }, data });
   }
 
-  async remove(where: Prisma.objectiveWhereUniqueInput) {
+  async deleteOneObjective(where: Prisma.objectiveWhereUniqueInput) {
     return this.db.objective.delete({ where });
+  }
+
+  async deleteAllObjectives() {
+    return this.db.objective.deleteMany();
   }
 }

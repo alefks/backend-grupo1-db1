@@ -30,17 +30,17 @@ export class TeamController {
     return this.teamService.getByIdTeam(id);
   }
 
-  @Patch(':id')
+  @Patch('/update/:id')
   updateOneTeam(@Param('id') id: number, @Body() updateTeamDto: UpdateTeamDto) {
     return this.teamService.updateOneTeam(id, updateTeamDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:id')
   deleteOneTeam(@Param('id') id: number) {
     return this.teamService.deleteOneTeam({ id: Number(id) });
   }
 
-  @Delete('/deleteall')
+  @Delete('/delete')
   deleteAllTeams() {
     return this.teamService.DeleteManyTeams();
   }
