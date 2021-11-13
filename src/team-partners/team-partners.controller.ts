@@ -25,7 +25,7 @@ export class TeamPartnerController {
     return this.teamPartnerService.createTeamPartner(dto);
   }
 
-  @Get('/list')
+  @Get('')
   @UsePipes(ValidationPipe)
   async findMany(): Promise<teamPartner[]> {
     return this.teamPartnerService.getTeamPartner();
