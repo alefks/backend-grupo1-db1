@@ -11,6 +11,13 @@ export class KeyResultsService {
     return this.prisma.keyResult.findMany();
   }
 
+  async findOne(id: number) {
+    return this.prisma.keyResult.findUnique({
+      where: { id },
+      include: { checkinDates: true },
+    });
+  }
+
   async createKeyResults(dto: CreateKeyResultsDto) {
     const data: Prisma.keyResultCreateInput = {
       ...dto,
@@ -29,15 +36,16 @@ export class KeyResultsService {
     return this.prisma.keyResult.create({ data });
   }
 
+  async deleteAllKeyResults() {
+    return this.prisma.keyResult.deleteMany();
+  }
+
   async deleteOneKeyResult(
     where: Prisma.keyResultWhereUniqueInput,
   ): Promise<keyResult> {
     return this.prisma.keyResult.delete({ where });
   }
 
-  async deleteAllKeyResults() {
-    return this.prisma.keyResult.deleteMany();
-  }
   async updateOneKeyResult(id, data) {
     const chekinDates = data.checkinDates?.map((checkinDate) => ({
       id: checkinDate,
