@@ -15,11 +15,11 @@ import { keyResult } from '.prisma/client';
 import { KeyResultsService } from './keyresults.service';
 import { UpdateKeyResultsDto } from './dto/update-keyresults.dto';
 
-@Controller('keyresults')
+@Controller('keyresult')
 export class KeyResultsController {
   constructor(private keyResultsService: KeyResultsService) {}
 
-  @Get('/lista')
+  @Get('')
   @UsePipes(ValidationPipe)
   async findMany(): Promise<keyResult[]> {
     return this.keyResultsService.getKeyResults();
@@ -33,13 +33,18 @@ export class KeyResultsController {
     return this.keyResultsService.createKeyResults(createKeyResultsDto);
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.keyResultsService.findOne(+id);
+  }
+
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
-  async delete(@Param('id') id: string) {
+  async deleteOne(@Param('id') id: string) {
     return this.keyResultsService.deleteOneKeyResult({ id: Number(id) });
   }
 
-  @Delete('/delete/all')
+  @Delete('delete')
   @UsePipes(ValidationPipe)
   async deleteAll() {
     return this.keyResultsService.deleteAllKeyResults();
