@@ -39,7 +39,7 @@ export class checkinController {
     return this.checkinService.deleteOneCheckin({ id: Number(id) });
   }
 
-  @Delete('/delete/all')
+  @Delete('/delete')
   @UsePipes(ValidationPipe)
   async deleteAll() {
     return this.checkinService.deleteAllCheckin();
