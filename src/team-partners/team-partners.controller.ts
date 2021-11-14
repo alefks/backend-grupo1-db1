@@ -31,7 +31,7 @@ export class TeamPartnerController {
     return this.teamPartnerService.getTeamPartner();
   }
 
-  @Get('/list/:id')
+  @Get('/:id')
   @UsePipes(ValidationPipe)
   async findUnique(@Param('id', ParseIntPipe) id: number) {
     return this.teamPartnerService.getOneTeamPartner(id);
