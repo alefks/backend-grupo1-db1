@@ -34,6 +34,50 @@ export class ObjectiveService {
     });
   }
 
+  // async findByQuarter(quarter_year: number, quarter_id: number) {
+  //   let where;
+  //   switch (quarter_id) {
+  //     case 1:
+  //       where = {
+  //         endDate: {
+  //           lte: new Date(quarter_year, 3, 31),
+  //         },
+  //       };
+  //     case 2:
+  //       where = {
+  //         endDate: {
+  //           lte: new Date(quarter_year, 6, 30),
+  //         },
+  //       };
+
+  //     case 3:
+  //       where = {
+  //         endDate: {
+  //           lte: new Date(quarter_year, 9, 30),
+  //         },
+  //       };
+
+  //     case 4:
+  //       where = {
+  //         endDate: {
+  //           lte: new Date(quarter_year, 12, 31),
+  //         },
+  //       };
+  //   }
+  //   return where;
+  // }
+
+  // async findByQuarter() {
+  //   const result = await this.db.objective.findMany({
+  //     where: {
+  //       endDate: {
+  //         lte: new Date('2021-11-14T19:10:00.000Z'),
+  //       },
+  //     },
+  //   });
+  //   return result;
+  // }
+
   async update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
     const data: Prisma.objectiveUpdateInput = {
       ..._updateObjectiveDto,
