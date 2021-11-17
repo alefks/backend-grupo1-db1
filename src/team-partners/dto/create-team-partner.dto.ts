@@ -7,5 +7,5 @@ export class CreateTeamPartnerDto {
   name: string;
 
   @IsInt()
-  team: number;
+  team: number[];
 }
