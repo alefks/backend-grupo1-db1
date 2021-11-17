@@ -18,8 +18,7 @@ model userAdmin {
 model teamPartner {
   id         Int         @id @default(autoincrement())
   name       String
-  teamId     Int
-  team       team        @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  team       team[]
   keyresults keyResult[]
   objectives objective[]
 }
@@ -35,6 +34,7 @@ model objective {
   id                   Int         @id @default(autoincrement())
   name                 String
   description          String
+  frequency            String
   teamId               Int
   managerId            Int
   endDate              DateTime
@@ -52,7 +52,6 @@ model keyResult {
   description   String
   goal          Int
   achieved      Int
-  frequency     String
   responsibleId Int
   objectiveId   Int
   objective     objective     @relation(fields: [objectiveId], references: [id], onDelete: Cascade, onUpdate: Cascade)

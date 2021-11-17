@@ -29,12 +29,16 @@ export class TeamService {
     return this.prisma.team.deleteMany();
   }
 
-  async updateOneTeam(teamId: number, data: UpdateTeamDto): Promise<team> {
-    return this.prisma.team.update({
-      data,
-      where: {
-        id: teamId,
-      },
-    });
+  async update(id: number, dto: UpdateTeamDto) {
+    const data: Prisma.teamUpdateInput = {
+      ...dto,
+      teamPartners:
+        {
+          connect: dto.teamPartners?.map((id) => ({
+            id,
+          })),
+        } || {},
+    };
+    return this.prisma.team.update({ where: { id }, data });
   }
 }

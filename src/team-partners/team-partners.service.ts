@@ -11,13 +11,10 @@ export class TeamPartnerService {
   async createTeamPartner(dto: CreateTeamPartnerDto) {
     const data: Prisma.teamPartnerCreateInput = {
       ...dto,
-      team: dto.team
-        ? {
-            connect: {
-              id: dto.team,
-            },
-          }
-        : {},
+      team:
+        {
+          connect: dto.team?.map((id) => ({ id })),
+        } || {},
     };
     return this.prisma.teamPartner.create({ data });
   }
@@ -50,13 +47,10 @@ export class TeamPartnerService {
   ): Promise<teamPartner> {
     const data: Prisma.teamPartnerUpdateInput = {
       ...dto,
-      team: dto.team
-        ? {
-            connect: {
-              id: dto.team,
-            },
-          }
-        : {},
+      team:
+        {
+          connect: dto.team?.map((id) => ({ id })),
+        } || {},
     };
 
     return this.prisma.teamPartner.update({
