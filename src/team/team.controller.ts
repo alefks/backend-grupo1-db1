@@ -32,7 +32,7 @@ export class TeamController {
 
   @Patch('/update/:id')
   updateOneTeam(@Param('id') id: number, @Body() updateTeamDto: UpdateTeamDto) {
-    return this.teamService.updateOneTeam(id, updateTeamDto);
+    return this.teamService.update(id, updateTeamDto);
   }
 
   @Delete('/delete/:id')
