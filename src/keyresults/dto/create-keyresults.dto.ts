@@ -28,11 +28,6 @@ export class CreateKeyResultsDto {
   achieved: number;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(40, { message: 'Máximo 40 caracteres' })
-  frequency: string;
-
-  @IsOptional()
   @IsNumber({}, { each: true })
   chekinDates?: number[];
 
