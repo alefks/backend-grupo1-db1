@@ -30,16 +30,6 @@ export class TeamController {
     return this.teamService.getByIdTeam(id);
   }
 
-  @Get('find-objectives/:id')
-  findOneTeamObjectives(@Param('id') id: number) {
-    return this.teamService.getByIdTeamObjectives(id);
-  }
-
-  @Get('find-team-partners/:id')
-  findOneTeamTeamPartners(@Param('id') id: number) {
-    return this.teamService.getByIdTeamTeamPartners(id);
-  }
-
   @Patch('/update/:id')
   updateOneTeam(@Param('id') id: number, @Body() updateTeamDto: UpdateTeamDto) {
     return this.teamService.update(id, updateTeamDto);
