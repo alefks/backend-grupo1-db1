@@ -7,9 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateCheckinDto {
-  @IsNotEmpty({ message: 'Obrigatório informar a nota' })
-  @IsNumber()
-  result: number;
 
   @IsOptional({ message: 'Obrigatório o preenchimento da descrição' })
   @IsString()
