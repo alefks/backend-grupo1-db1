@@ -24,10 +24,6 @@ export class CreateKeyResultsDto {
   goal: number;
 
   @IsOptional()
-  @IsNumber()
-  achieved: number;
-
-  @IsOptional()
   @IsNumber({}, { each: true })
   chekinDates?: number[];
 
