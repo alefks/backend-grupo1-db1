@@ -13,6 +13,6 @@ export class CreateTeamDto {
   name: string;
 
   @IsOptional()
-  @IsInt()
+  @IsInt({ each: true })
   teamPartners: number[];
 }
