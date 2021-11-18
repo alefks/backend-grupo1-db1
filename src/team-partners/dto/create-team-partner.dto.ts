@@ -12,7 +12,7 @@ export class CreateTeamPartnerDto {
   @IsNotEmpty({ message: 'Insira um nome' })
   name: string;
 
-  @IsInt()
+  @IsInt({ each: true })
   @IsOptional()
   team: number[];
 }
