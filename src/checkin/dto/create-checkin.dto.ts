@@ -16,6 +16,10 @@ export class CreateCheckinDto {
   @MaxLength(200, { message: 'Máximo 200 caracteres' })
   note: string;
 
+  @IsOptional()
+  @IsNumber()
+  achieved: number;
+
   @IsNotEmpty({ message: 'Obrigatório informar a data do Ckeckin' })
   date: Date;
 

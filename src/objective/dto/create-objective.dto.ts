@@ -2,6 +2,7 @@ import {
   IsArray,
   IsDateString,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -18,9 +19,8 @@ export class CreateObjectiveDto {
   description: string;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(40, { message: 'Máximo 40 caracteres' })
-  frequency: string;
+  @IsNumber()
+  frequency: number;
 
   @IsDateString()
   startDate: Date;
