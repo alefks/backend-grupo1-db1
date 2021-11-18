@@ -20,20 +20,7 @@ export class TeamService {
   async getByIdTeam(teamId: number): Promise<team> {
     return this.prisma.team.findUnique({
       where: { id: teamId },
-    });
-  }
-
-  async getByIdTeamObjectives(teamId: number): Promise<team> {
-    return this.prisma.team.findUnique({
-      where: { id: teamId },
-      include: { objectives: true },
-    });
-  }
-
-  async getByIdTeamTeamPartners(teamId: number): Promise<team> {
-    return this.prisma.team.findUnique({
-      where: { id: teamId },
-      include: { teamPartners: true },
+      include: { objectives: true, teamPartners: true },
     });
   }
 
