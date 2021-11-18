@@ -35,11 +35,11 @@ export class ObjectiveController {
     return this.objectiveService.findOne(+id);
   }
 
-  // @Get('findByQuarter/:quarter_date/')
-  // @UsePipes(ValidationPipe)
-  // async findByQuarter(@Param('quarter_date') quarter_date: Date) {
-  //   return this.objectiveService.findByQuarter();
-  // }
+  @Get(':year/:id')
+  @UsePipes(ValidationPipe)
+  async findByQuarter(@Param('year') year: number, @Param('id') id: number) {
+    return this.objectiveService.findByQuarter(year, id);
+  }
 
   @Patch('/update/:id')
   @UsePipes(ValidationPipe)
