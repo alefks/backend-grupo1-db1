@@ -1,4 +1,10 @@
-import { MaxLength, MinLength, IsNotEmpty, IsInt } from 'class-validator';
+import {
+  MaxLength,
+  MinLength,
+  IsNotEmpty,
+  IsInt,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateTeamPartnerDto {
   @MaxLength(50, { message: 'O nome deve conter até 50 caracteres' })
@@ -7,5 +13,6 @@ export class CreateTeamPartnerDto {
   name: string;
 
   @IsInt()
+  @IsOptional()
   team: number[];
 }
