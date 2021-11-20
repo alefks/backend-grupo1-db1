@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
@@ -8,14 +8,20 @@ export class KeyResultsService {
   constructor(private prisma: PrismaService) {}
 
   async getKeyResults(): Promise<keyResult[]> {
-    return this.prisma.keyResult.findMany();
+    const result = await this.prisma.keyResult.findMany();
+    if (!result)
+      throw new NotFoundException('There are not registers KeyResults');
+    return result;
   }
 
   async findOne(id: number) {
-    return this.prisma.keyResult.findUnique({
+    const result = await this.prisma.keyResult.findUnique({
       where: { id },
       include: { checkinDates: true },
     });
+
+    if (!result) throw new NotFoundException('KeyResult not found');
+    return result;
   }
 
   async createKeyResults(dto: CreateKeyResultsDto) {
