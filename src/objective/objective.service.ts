@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, objective } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateObjectiveDto } from './dto/update-objective.dto';
@@ -24,14 +24,19 @@ export class ObjectiveService {
   }
 
   async findAll() {
-    return this.db.objective.findMany();
+    const result = await this.db.objective.findMany();
+    if (!result)
+      throw new NotFoundException('There are not registers Objectives');
+    return result;
   }
 
   async findOne(id: number) {
-    return this.db.objective.findUnique({
+    const result = await this.db.objective.findUnique({
       where: { id },
       include: { keyResults: true },
     });
+    if (!result) throw new NotFoundException('Objective not found');
+    return result;
   }
 
   async findByQuarter(quarter_year: number, quarter_id: number) {
@@ -57,6 +62,10 @@ export class ObjectiveService {
         lteMonth = 12;
         gteMonth = 9;
 
+        break;
+
+      default:
+        throw new NotFoundException('Quarter not found');
         break;
     }
     const result = await this.db.objective.findMany({
