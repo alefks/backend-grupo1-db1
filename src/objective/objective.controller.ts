@@ -35,10 +35,20 @@ export class ObjectiveController {
     return this.objectiveService.findOne(+id);
   }
 
-  @Get(':year/:id')
+  /* @Get('/year/:year')
   @UsePipes(ValidationPipe)
-  async findByQuarter(@Param('year') year: number, @Param('id') id: number) {
-    return this.objectiveService.findByQuarter(year, id);
+  async findOneYear(@Param('year') year: number) {
+    return this.objectiveService.findOneYear(year);
+  } */
+
+  @Get(':teamid/:year/:id')
+  @UsePipes(ValidationPipe)
+  async findByQuarter(
+    @Param('year') year: number,
+    @Param('id') id: number,
+    @Param('teamid') teamid: number,
+  ) {
+    return this.objectiveService.findByQuarter(year, id, teamid);
   }
 
   @Patch('/update/:id')

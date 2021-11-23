@@ -1,5 +1,5 @@
 import { Prisma, teamPartner } from '@prisma/client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTeamPartnerDto } from './dto/create-team-partner.dto';
 import { UpdateTeamPartnerDto } from './dto/update-team-partner.dto';
@@ -20,15 +20,20 @@ export class TeamPartnerService {
   }
 
   async getTeamPartner(): Promise<teamPartner[]> {
-    return this.prisma.teamPartner.findMany();
+    const result = await this.prisma.teamPartner.findMany();
+    if (!result)
+      throw new NotFoundException('There are not registers TeamPartners');
+    return result;
   }
 
   async getOneTeamPartner(teamPartnerId: number): Promise<teamPartner> {
-    return this.prisma.teamPartner.findUnique({
+    const result = await this.prisma.teamPartner.findUnique({
       where: {
         id: teamPartnerId,
       },
     });
+    if (!result) throw new NotFoundException('TeamPartner not found');
+    return result;
   }
 
   async deleteAllTeamPartners() {
