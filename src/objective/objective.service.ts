@@ -39,7 +39,11 @@ export class ObjectiveService {
     return result;
   }
 
-  async findByQuarter(quarter_year: number, quarter_id: number) {
+  async findByQuarter(
+    quarter_year: number,
+    quarter_id: number,
+    teamId: number,
+  ) {
     let lteMonth;
     let gteMonth;
     switch (quarter_id) {
@@ -68,9 +72,11 @@ export class ObjectiveService {
         throw new NotFoundException('Quarter not found');
         break;
     }
+
     const result = await this.db.objective.findMany({
       where: {
         AND: [
+          { teamId },
           {
             endDate: {
               lte: new Date(quarter_year, lteMonth),
@@ -82,6 +88,10 @@ export class ObjectiveService {
             },
           },
         ],
+      },
+      include: {
+        manager: { select: { name: true } },
+        keyResults: true,
       },
     });
     return result;
