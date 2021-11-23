@@ -23,10 +23,6 @@ export class CreateKeyResultsDto {
   @IsNumber()
   goal: number;
 
-  @IsOptional()
-  @IsNumber({}, { each: true })
-  chekinDates?: number[];
-
   @IsNumber()
   responsible: number;
 
