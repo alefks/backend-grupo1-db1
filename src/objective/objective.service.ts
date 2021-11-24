@@ -33,12 +33,13 @@ export class ObjectiveService {
   async findOne(id: number) {
     const result = await this.db.objective.findUnique({
       where: { id },
-      include: { keyResults: true },
+      include: {
+        keyResults: { include: { responsible: { select: { name: true } } } },
+      },
     });
     if (!result) throw new NotFoundException('Objective not found');
     return result;
   }
-
   async findByQuarter(
     quarter_year: number,
     quarter_id: number,

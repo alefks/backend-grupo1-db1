@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
+import { UpdateKeyResultsDto } from './dto/update-keyresults.dto';
 
 @Injectable()
 export class KeyResultsService {
@@ -52,23 +53,24 @@ export class KeyResultsService {
     return this.prisma.keyResult.delete({ where });
   }
 
-  async updateOneKeyResult(id, data) {
-    const chekinDates = data.checkinDates?.map((checkinDate) => ({
-      id: checkinDate,
-    }));
-
-    return await this.prisma.keyResult.update({
-      data: {
-        ...data,
-        checkinDates: {
-          connect: chekinDates,
-        },
-      },
-      include: {
-        checkinDates: true,
+  async updateOneKeyResult(
+    id: number,
+    _updateKeyResultsDto: UpdateKeyResultsDto,
+  ) {
+    const data: Prisma.keyResultUpdateInput = {
+      ..._updateKeyResultsDto,
+      objective: {
+        connect: _updateKeyResultsDto.objective
+          ? {
+              id: _updateKeyResultsDto.objective,
+            }
+          : {},
       },
 
-      where: { id },
-    });
+      responsible: _updateKeyResultsDto.responsible
+        ? { connect: { id: _updateKeyResultsDto.responsible } }
+        : {},
+    };
+    return this.prisma.keyResult.update({ where: { id }, data });
   }
 }
