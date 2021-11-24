@@ -59,13 +59,9 @@ export class KeyResultsService {
   ) {
     const data: Prisma.keyResultUpdateInput = {
       ..._updateKeyResultsDto,
-      objective: {
-        connect: _updateKeyResultsDto.objective
-          ? {
-              id: _updateKeyResultsDto.objective,
-            }
-          : {},
-      },
+      objective: _updateKeyResultsDto.objective
+        ? { connect: { id: _updateKeyResultsDto.objective } }
+        : {},
 
       responsible: _updateKeyResultsDto.responsible
         ? { connect: { id: _updateKeyResultsDto.responsible } }
