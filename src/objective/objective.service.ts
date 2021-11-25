@@ -40,6 +40,23 @@ export class ObjectiveService {
     if (!result) throw new NotFoundException('Objective not found');
     return result;
   }
+
+  async findSelfRelation(id: number) {
+    const result = await this.db.objective.findUnique({
+      where: { id },
+      select: {
+        relatedObjectives: {
+          select: {
+            name: true,
+            team: { select: { name: true } },
+          },
+        },
+      },
+    });
+    if (!result) throw new NotFoundException('Objective not found');
+    return result;
+  }
+
   async findByQuarter(
     quarter_year: number,
     quarter_id: number,

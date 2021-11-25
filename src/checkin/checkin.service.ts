@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, checkinDate } from '@prisma/client';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
@@ -23,6 +23,12 @@ export class CheckinService {
 
   async getCheckin(): Promise<checkinDate[]> {
     return this.prisma.checkinDate.findMany();
+  }
+
+  async getOneCheckin(id: number) {
+    const result = await this.prisma.checkinDate.findUnique({ where: { id } });
+    if (!result) throw new NotFoundException('Chekin not found');
+    return result;
   }
 
   async deleteOneCheckin(

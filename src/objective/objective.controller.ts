@@ -37,11 +37,12 @@ export class ObjectiveController {
     return this.objectiveService.findOne(+id);
   }
 
-  /* @Get('/year/:year')
+  @Get('lista/:id')
   @UsePipes(ValidationPipe)
-  async findOneYear(@Param('year') year: number) {
-    return this.objectiveService.findOneYear(year);
-  } */
+  async findSelfRelation(@Param('id') id: string) {
+    return this.objectiveService.findSelfRelation(+id);
+  }
+
 
   @Get(':teamid/:year/:id')
   @UsePipes(ValidationPipe)
