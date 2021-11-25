@@ -4,6 +4,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -39,12 +41,14 @@ export class TeamPartnerController {
 
   @Delete('/delete')
   @UsePipes(ValidationPipe)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteMany() {
     return this.teamPartnerService.deleteAllTeamPartners();
   }
 
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: string) {
     return this.teamPartnerService.deleteOneTeamPartner({ id: Number(id) });
   }
