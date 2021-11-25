@@ -27,6 +27,11 @@ export class checkinController {
     return this.checkinService.getCheckin();
   }
 
+  @Get(':id')
+  getOneCheckin(@Param('id') id: string) {
+    return this.checkinService.getOneCheckin(+id);
+  }
+
   @Post('/create')
   @UsePipes(ValidationPipe)
   async create(
