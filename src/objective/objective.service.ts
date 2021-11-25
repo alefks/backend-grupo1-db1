@@ -47,6 +47,7 @@ export class ObjectiveService {
       select: {
         relatedObjectives: {
           select: {
+            id: true,
             name: true,
             team: { select: { name: true } },
           },
