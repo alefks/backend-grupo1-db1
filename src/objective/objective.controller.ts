@@ -43,7 +43,6 @@ export class ObjectiveController {
     return this.objectiveService.findSelfRelation(+id);
   }
 
-
   @Get(':teamid/:year/:id')
   @UsePipes(ValidationPipe)
   async findByQuarter(

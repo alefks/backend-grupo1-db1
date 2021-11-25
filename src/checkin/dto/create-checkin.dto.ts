@@ -7,7 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateCheckinDto {
-
   @IsOptional({ message: 'Obrigatório o preenchimento da descrição' })
   @IsString()
   @MaxLength(200, { message: 'Máximo 200 caracteres' })
