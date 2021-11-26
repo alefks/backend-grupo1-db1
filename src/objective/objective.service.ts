@@ -70,7 +70,7 @@ export class ObjectiveService {
     const result = await this.db.objective.findUnique({
       where: { id },
       select: {
-        relatedObjectives: {
+        relationalObjectives: {
           select: {
             id: true,
             name: true,
