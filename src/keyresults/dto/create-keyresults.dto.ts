@@ -19,7 +19,6 @@ export class CreateKeyResultsDto {
   @MaxLength(200, { message: 'Máximo 200 caracteres' })
   description: string;
 
-  @IsOptional()
   @IsNumber()
   goal: number;
 
