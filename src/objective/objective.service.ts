@@ -54,7 +54,12 @@ export class ObjectiveService {
     const result = await this.db.objective.findUnique({
       where: { id },
       include: {
-        keyResults: { include: { responsible: { select: { name: true } } } },
+        keyResults: {
+          include: {
+            responsible: { select: { name: true } },
+            checkinDates: true,
+          },
+        },
       },
     });
     if (!result) throw new NotFoundException('Objective not found');
