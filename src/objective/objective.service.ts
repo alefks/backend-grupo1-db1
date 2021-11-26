@@ -137,6 +137,10 @@ export class ObjectiveService {
   }
 
   async update(id: number, _updateObjectiveDto: UpdateObjectiveDto) {
+    const disconnectObjective = _updateObjectiveDto.disconnectObjective;
+    _updateObjectiveDto.disconnectObjective &&
+      delete _updateObjectiveDto.disconnectObjective;
+
     const data: Prisma.objectiveUpdateInput = {
       ..._updateObjectiveDto,
       manager: _updateObjectiveDto.manager
@@ -147,9 +151,12 @@ export class ObjectiveService {
         : {},
       relationalObjectives:
         {
-          connect: _updateObjectiveDto.relationalObjectives?.map((id) => ({
-            id,
-          })),
+          connect:
+            _updateObjectiveDto.relationalObjectives?.map((id) => ({
+              id,
+            })) || [],
+          disconnect:
+            (disconnectObjective && { id: disconnectObjective }) || [],
         } || {},
     };
     return this.db.objective.update({ where: { id }, data });
