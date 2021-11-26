@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
@@ -35,11 +37,13 @@ export class TeamController {
     return this.teamService.update(id, updateTeamDto);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/delete/:id')
   deleteOneTeam(@Param('id') id: number) {
     return this.teamService.deleteOneTeam({ id: Number(id) });
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/delete')
   deleteAllTeams() {
     return this.teamService.DeleteManyTeams();

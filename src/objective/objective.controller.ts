@@ -8,6 +8,8 @@ import {
   Delete,
   ValidationPipe,
   UsePipes,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { ObjectiveService } from './objective.service';
 import { CreateObjectiveDto } from './dto/create-objective.dto';
@@ -35,11 +37,11 @@ export class ObjectiveController {
     return this.objectiveService.findOne(+id);
   }
 
-  /* @Get('/year/:year')
+  @Get('lista/:id')
   @UsePipes(ValidationPipe)
-  async findOneYear(@Param('year') year: number) {
-    return this.objectiveService.findOneYear(year);
-  } */
+  async findSelfRelation(@Param('id') id: string) {
+    return this.objectiveService.findSelfRelation(+id);
+  }
 
   @Get(':teamid/:year/:id')
   @UsePipes(ValidationPipe)
@@ -60,12 +62,14 @@ export class ObjectiveController {
     return this.objectiveService.update(+id, updateObjectiveDto);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('delete/:id')
   @UsePipes(ValidationPipe)
   async deleteOne(@Param('id') id: string) {
     return this.objectiveService.deleteOneObjective({ id: Number(id) });
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('delete')
   @UsePipes(ValidationPipe)
   async deleteAll() {

@@ -50,14 +50,17 @@ export class TeamPartnerService {
     teamPartnerId: number,
     dto: UpdateTeamPartnerDto,
   ): Promise<teamPartner> {
+    const disconnectTeam: number = dto.disconnectTeam;
+    dto.disconnectTeam && delete dto.disconnectTeam;
     const data: Prisma.teamPartnerUpdateInput = {
       ...dto,
       team:
-        {
-          connect: dto.team?.map((id) => ({ id })),
-        } || {},
+        ((dto.team || disconnectTeam) && {
+          connect: dto.team?.map((id) => ({ id })) || [],
+          disconnect: (disconnectTeam && [{ id: disconnectTeam }]) || [],
+        }) ||
+        {},
     };
-
     return this.prisma.teamPartner.update({
       data,
       where: {

@@ -9,6 +9,8 @@ import {
   UsePipes,
   ParseIntPipe,
   Patch,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateCheckinDto } from './dto/create-checkin.dto';
 import { checkinDate } from '.prisma/client';
@@ -25,6 +27,11 @@ export class checkinController {
     return this.checkinService.getCheckin();
   }
 
+  @Get(':id')
+  getOneCheckin(@Param('id') id: string) {
+    return this.checkinService.getOneCheckin(+id);
+  }
+
   @Post('/create')
   @UsePipes(ValidationPipe)
   async create(
@@ -33,12 +40,14 @@ export class checkinController {
     return this.checkinService.createCheckin(createCheckinDto);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async delete(@Param('id') id: string) {
     return this.checkinService.deleteOneCheckin({ id: Number(id) });
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/delete')
   @UsePipes(ValidationPipe)
   async deleteAll() {

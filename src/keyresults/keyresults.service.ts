@@ -1,7 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
+import { UpdateKeyResultsDto } from './dto/update-keyresults.dto';
 
 @Injectable()
 export class KeyResultsService {
@@ -27,6 +32,8 @@ export class KeyResultsService {
   async createKeyResults(dto: CreateKeyResultsDto) {
     const data: Prisma.keyResultCreateInput = {
       ...dto,
+      name: dto.name.trim(),
+      description: dto.description.trim(),
 
       responsible: {
         connect: {
@@ -39,7 +46,18 @@ export class KeyResultsService {
         },
       },
     };
-    return this.prisma.keyResult.create({ data });
+
+    const keyResultCheck = await this.prisma.keyResult.findMany({
+      where: {
+        AND: [{ name: dto.name.trim() }, { objectiveId: dto.objective }],
+      },
+    });
+
+    if (keyResultCheck.length) {
+      throw new BadRequestException('Já existe um objeto com esse nome');
+    } else {
+      return this.prisma.keyResult.create({ data });
+    }
   }
 
   async deleteAllKeyResults() {
@@ -52,23 +70,20 @@ export class KeyResultsService {
     return this.prisma.keyResult.delete({ where });
   }
 
-  async updateOneKeyResult(id, data) {
-    const chekinDates = data.checkinDates?.map((checkinDate) => ({
-      id: checkinDate,
-    }));
+  async updateOneKeyResult(
+    id: number,
+    _updateKeyResultsDto: UpdateKeyResultsDto,
+  ) {
+    const data: Prisma.keyResultUpdateInput = {
+      ..._updateKeyResultsDto,
+      objective: _updateKeyResultsDto.objective
+        ? { connect: { id: _updateKeyResultsDto.objective } }
+        : {},
 
-    return await this.prisma.keyResult.update({
-      data: {
-        ...data,
-        checkinDates: {
-          connect: chekinDates,
-        },
-      },
-      include: {
-        checkinDates: true,
-      },
-
-      where: { id },
-    });
+      responsible: _updateKeyResultsDto.responsible
+        ? { connect: { id: _updateKeyResultsDto.responsible } }
+        : {},
+    };
+    return this.prisma.keyResult.update({ where: { id }, data });
   }
 }

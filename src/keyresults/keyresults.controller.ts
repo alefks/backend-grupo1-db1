@@ -9,6 +9,8 @@ import {
   ValidationPipe,
   UsePipes,
   Patch,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
 import { keyResult } from '.prisma/client';
@@ -38,12 +40,14 @@ export class KeyResultsController {
     return this.keyResultsService.findOne(+id);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/delete/:id')
   @UsePipes(ValidationPipe)
   async deleteOne(@Param('id') id: string) {
     return this.keyResultsService.deleteOneKeyResult({ id: Number(id) });
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('delete')
   @UsePipes(ValidationPipe)
   async deleteAll() {

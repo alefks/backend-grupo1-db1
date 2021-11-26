@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, objective } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateObjectiveDto } from './dto/update-objective.dto';
@@ -11,6 +15,8 @@ export class ObjectiveService {
   async create(_createObjectiveDto: CreateObjectiveDto): Promise<objective> {
     const data: Prisma.objectiveCreateInput = {
       ..._createObjectiveDto,
+      name: _createObjectiveDto.name.trim(),
+      description: _createObjectiveDto.description.trim(),
       manager: { connect: { id: _createObjectiveDto.manager } },
       team: { connect: { id: _createObjectiveDto.team } },
       relationalObjectives:
@@ -20,7 +26,21 @@ export class ObjectiveService {
           })),
         } || {},
     };
-    return this.db.objective.create({ data });
+
+    const objectiveCheck = await this.db.objective.findMany({
+      where: {
+        AND: [
+          { name: _createObjectiveDto.name.trim() },
+          { teamId: _createObjectiveDto.team },
+        ],
+      },
+    });
+
+    if (objectiveCheck.length) {
+      throw new BadRequestException('Já existe um objeto com esse nome');
+    } else {
+      return this.db.objective.create({ data });
+    }
   }
 
   async findAll() {
@@ -33,7 +53,26 @@ export class ObjectiveService {
   async findOne(id: number) {
     const result = await this.db.objective.findUnique({
       where: { id },
-      include: { keyResults: true },
+      include: {
+        keyResults: { include: { responsible: { select: { name: true } } } },
+      },
+    });
+    if (!result) throw new NotFoundException('Objective not found');
+    return result;
+  }
+
+  async findSelfRelation(id: number) {
+    const result = await this.db.objective.findUnique({
+      where: { id },
+      select: {
+        relatedObjectives: {
+          select: {
+            id: true,
+            name: true,
+            team: { select: { name: true } },
+          },
+        },
+      },
     });
     if (!result) throw new NotFoundException('Objective not found');
     return result;
