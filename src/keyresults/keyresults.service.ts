@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { keyResult, Prisma } from '.prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateKeyResultsDto } from './dto/create-keyresults.dto';
@@ -28,6 +32,8 @@ export class KeyResultsService {
   async createKeyResults(dto: CreateKeyResultsDto) {
     const data: Prisma.keyResultCreateInput = {
       ...dto,
+      name: dto.name.trim(),
+      description: dto.description.trim(),
 
       responsible: {
         connect: {
@@ -40,7 +46,18 @@ export class KeyResultsService {
         },
       },
     };
-    return this.prisma.keyResult.create({ data });
+
+    const keyResultCheck = await this.prisma.keyResult.findMany({
+      where: {
+        AND: [{ name: dto.name.trim() }, { objectiveId: dto.objective }],
+      },
+    });
+
+    if (keyResultCheck.length) {
+      throw new BadRequestException('Já existe um objeto com esse nome');
+    } else {
+      return this.prisma.keyResult.create({ data });
+    }
   }
 
   async deleteAllKeyResults() {
